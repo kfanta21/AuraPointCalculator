@@ -12,9 +12,13 @@ public class Main {
         boolean physicalActivity = true;
         int junkFood = 0, sleep = 8;
 
+        double dailyIncome = 0;
+        double dailyCost = 800;
+        double wasted = 0;
+
         Spirituality spirituality = new Spirituality(liturgy,prayers, bibleStudy, reflection, service, midiaHourlyUsage);
         Health health = new Health(physicalActivity, junkFood, sleep);
-        Finance finance = new Finance();
+        Finance finance = new Finance(dailyIncome, dailyCost, wasted);
         Carrer carrer = new Carrer();
         Relationship relationship = new Relationship();
 

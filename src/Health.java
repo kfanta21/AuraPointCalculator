@@ -23,6 +23,7 @@ public class Health {
         } else{
             points += 600;
         }
+        System.out.println("Today's Health Points: " + points);
         return points;
     }
 }
