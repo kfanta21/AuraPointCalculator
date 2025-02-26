@@ -19,7 +19,7 @@ public class DailyAura{
         aura += spirituality.getPoints();
         aura += health.getPoints();
         aura += finance.getPoints();
-        //aura += carrer.getPoints();
+        aura += carrer.getPoints();
         //aura += relationship.getPoints();
         //consider drip/highgane
         return aura/5;

@@ -2,24 +2,31 @@
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) {
-        Boolean liturgy = true;
-        int prayers = 3;
+        Boolean liturgy = null;
+        int prayers = 4;
         boolean bibleStudy = true;
         boolean reflection = true;
-        boolean service = true;
-        int midiaHourlyUsage = 0;
+        boolean service = false;
+        int midiaHourlyUsage = 1;
 
         boolean physicalActivity = true;
-        int junkFood = 0, sleep = 8;
+        int junkFood = 1, sleep = 7;
 
         double dailyIncome = 0;
-        double dailyCost = 800;
+        double dailyCost = 74;
         double wasted = 0;
+
+        boolean isPriorityGoalCompleted = false;
+        boolean isSecondaryGoalCompleted = true;
+
+        boolean isThirdPriorityGoalCompleted = false;
+        boolean fullListComplete = false;
 
         Spirituality spirituality = new Spirituality(liturgy,prayers, bibleStudy, reflection, service, midiaHourlyUsage);
         Health health = new Health(physicalActivity, junkFood, sleep);
         Finance finance = new Finance(dailyIncome, dailyCost, wasted);
-        Carrer carrer = new Carrer();
+        Carrer carrer = new Carrer(isPriorityGoalCompleted, isSecondaryGoalCompleted, isThirdPriorityGoalCompleted,
+        fullListComplete);
         Relationship relationship = new Relationship();
 
         DailyAura dailyAura = new DailyAura(spirituality, health, finance, carrer, relationship);
