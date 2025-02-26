@@ -12,12 +12,14 @@ public class Finance {
     private double netIncome(){
         return daylyIncome - daylyCost;
     }
-    private double totalSaved(){
-        return netIncome() - wasted;
+
+    //Wastfull money will punish points 10-fold
+    private double totalPoints(){
+        return netIncome() - (wasted*10);
     }
 
     public double getPoints(){
-        double points = totalSaved() * 10;
+        double points = totalPoints() * 10;
         System.out.println("Today's Finance Point: " + points);
         return points;
     }

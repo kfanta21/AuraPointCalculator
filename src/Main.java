@@ -10,24 +10,29 @@ public class Main {
         int midiaHourlyUsage = 1;
 
         boolean physicalActivity = true;
-        int junkFood = 1, sleep = 7;
+        int junkFood = 0, sleep = 9;
 
-        double dailyIncome = 0;
-        double dailyCost = 74;
-        double wasted = 0;
+        double dailyIncome = 100;
+        double dailyCost = 90;
+        double wasted = 10;
 
-        boolean isPriorityGoalCompleted = false;
-        boolean isSecondaryGoalCompleted = true;
-
-        boolean isThirdPriorityGoalCompleted = false;
+        boolean isDailyGoalSet = true;
+        boolean isPriorityGoalCompleted = true;
+        boolean isSecondaryGoalCompleted = false;
+        boolean isThirdPriorityGoalCompleted = true;
         boolean fullListComplete = false;
+        int wastedHourse = 4;
+
+        int timeSpent = 3;
+        int affection = 5;
+        boolean supportive = true;
 
         Spirituality spirituality = new Spirituality(liturgy,prayers, bibleStudy, reflection, service, midiaHourlyUsage);
         Health health = new Health(physicalActivity, junkFood, sleep);
         Finance finance = new Finance(dailyIncome, dailyCost, wasted);
-        Carrer carrer = new Carrer(isPriorityGoalCompleted, isSecondaryGoalCompleted, isThirdPriorityGoalCompleted,
-        fullListComplete);
-        Relationship relationship = new Relationship();
+        Carrer carrer = new Carrer(isDailyGoalSet, isPriorityGoalCompleted, isSecondaryGoalCompleted, isThirdPriorityGoalCompleted,
+        fullListComplete, wastedHourse);
+        Relationship relationship = new Relationship(timeSpent, affection, supportive);
 
         DailyAura dailyAura = new DailyAura(spirituality, health, finance, carrer, relationship);
         TotalAura totalAura = new TotalAura();

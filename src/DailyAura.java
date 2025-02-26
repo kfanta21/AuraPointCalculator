@@ -20,8 +20,8 @@ public class DailyAura{
         aura += health.getPoints();
         aura += finance.getPoints();
         aura += carrer.getPoints();
-        //aura += relationship.getPoints();
+        aura += relationship.getPoints();
         //consider drip/highgane
-        return aura/5;
+        return aura;
     }
 }
