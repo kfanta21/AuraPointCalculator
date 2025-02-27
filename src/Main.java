@@ -1,5 +1,6 @@
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
+import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
@@ -15,13 +16,20 @@ public class Main {
         boolean isSecondaryGoalCompleted = true;
         boolean isThirdPriorityGoalCompleted = true;
         boolean fullListComplete = true;
-        int wastedHourse = 0;
+        int wastedHourse = 10;
 
         int timeSpent = 2;
-        int affection = 2;
+        int affection = 5;
         boolean supportive = true;
 
-        Spirituality spirituality = Spirituality.createSpiritualityTracker();
+        Scanner scanner = new Scanner(System.in);
+        SpiritualityInputHandler handler = new SpiritualityInputHandler(scanner);
+
+        Spirituality spirituality = handler.collectInput();
+        spirituality.displayTotalPoints();
+
+        scanner.close();
+
         Health health = new Health(activityLevel, junkFood, sleep);
         Finance finance = new Finance(dailyIncome, dailyCost, wasted);
         Carrer carrer = new Carrer(isDailyGoalSet, isPriorityGoalCompleted, isSecondaryGoalCompleted, isThirdPriorityGoalCompleted,

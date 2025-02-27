@@ -1,140 +1,62 @@
-import java.util.Scanner;
-import java.util.SortedMap;
-
 public class Spirituality {
-    //{Attend the Divine Liturgy, Daily Prayers, Read the Word Of God, Confession and Spiritual Reflection, Service}\
-    Boolean liturgy;
-    int prayers;
-    boolean bibleStudy;
-    boolean reflection;
-    boolean service;
-    int mediaHourlyUsage;
 
-    /**
-     * Constructs a Spirituality object.
-     * @param liturgy         whether the Divine Liturgy is attended
-     * @param prayers         number of daily prayers (will contribute logarithmically)
-     * @param bibleStudy      whether Bible study is performed
-     * @param reflection      whether spiritual reflection/confession is performed
-     * @param service         whether service is performed
-     * @param mediaHourlyUsage number of hours spent on media (can negatively impact spirituality)
-     */
-    Spirituality(Boolean liturgy, int prayers, boolean bibleStudy, boolean reflection, boolean service, int mediaHourlyUsage){
-        //Prayer calculation must grow with logarithmic rate.
-        this.liturgy = liturgy; // {-1200, +1000} range = 2200
-        this.prayers = prayers; // {-400, +700} range = 1100
-        this.bibleStudy = bibleStudy; // {-200, +400} range = 600
-        this.reflection = reflection; // {-60, +250} range = 310
-        this.service = service; // {0, +100} range = 100
-        this.mediaHourlyUsage = mediaHourlyUsage; // {negative, no upper limit} effect depends on hours spent (-150 * hours)
+    private final LiturgyStatus liturgyStatus;
+    private final int prayers;
+    private final boolean bibleStudy;
+    private final boolean reflection;
+    private final boolean service;
+    private final int mediaHours;
+
+    public Spirituality(LiturgyStatus liturgyStatus, int prayers, boolean bibleStudy,
+                        boolean reflection, boolean service, int mediaHours) {
+        this.liturgyStatus = liturgyStatus;
+        this.prayers = prayers;
+        this.bibleStudy = bibleStudy;
+        this.reflection = reflection;
+        this.service = service;
+        this.mediaHours = mediaHours;
     }
 
-    public static Spirituality createSpiritualityTracker(){
-        Boolean liturgy = null;
-        boolean bibleStudy, reflection, service;
-        int prayers, mediaHourlyUsage;
-
-        Scanner scan = new Scanner(System.in);
-        System.out.println("What day of the week is it?");
-        int day;
-        do{
-            System.out.println("Please enter a number from 1-7");
-            System.out.println("1. Monday, 2. Tuesday, 3. Wednesday, 4. Thursday, 5. Friday, 6. Saturday, 7. Sunday");
-            day = scan.nextInt();
-            scan.nextLine();
-            if(day == 7){
-                System.out.println("Did you go to church?");
-                System.out.println("Enter (Yes/No)");
-                String str = scan.nextLine();
-                if(str.toLowerCase().equals("yes")){
-                    liturgy = true;
-                } else liturgy = false;
-            } else if (day > 0 && day < 7){ liturgy = null;}
-        }while(day > 7 || day < 1);
-
-        System.out.println("How many times did you pray today?");
-        prayers = scan.nextInt();
-        scan.nextLine();
-
-        System.out.println("Did you read your bible? (Yes/No)");
-        String str = scan.nextLine();
-        if (str.toLowerCase().equals("yes")) bibleStudy = true; else bibleStudy = false;
-
-        System.out.println("Did you reflect on your day? (Yes/No)");
-        str = scan.nextLine();
-        if (str.toLowerCase().equals("yes")) reflection = true; else reflection = false;
-
-        System.out.println("Did you do any service today? (Yes/No)");
-        str = scan.nextLine();
-        if (str.toLowerCase().equals("yes")) service = true; else service = false;
-
-        System.out.println("How many hours did you spend on entertainment (Gaming/TV/Social Media)");
-        mediaHourlyUsage = scan.nextInt();
-        return new Spirituality(liturgy,prayers, bibleStudy, reflection, service, mediaHourlyUsage);
-    }
-
-    public int totalPoints(){
-        int totalPoints = liturgyPoint() + prayersPoint() + bibleStudyPoints() + reflectionPoints()
+    private int calculateTotalPoints() {
+        return liturgyPoint() + prayersPoint() + bibleStudyPoints() + reflectionPoints()
                 + servicePoints() + mediaUsagePoint();
-        System.out.println("Today's Spirituality Point: " + totalPoints);
-        return totalPoints;
     }
 
-    private int liturgyPoint(){
-        if(liturgy == null) { return 0;}
-        else if(liturgy){ return 1000;}
-        else {return -1200;}
+    public int getPoints(){
+        return calculateTotalPoints();
     }
-    private int prayersPoint(){
-        int points = 0;
-        if(prayers == 0){
-            points -= 400;
-        }
-        else if(prayers >= 7){
-            points += 700;
-        }
-        else{
-            points += (prayers * 100);
-        }
-        return points;
+    public void displayTotalPoints() {
+        System.out.println("Today's Spirituality Point: " + calculateTotalPoints());
     }
 
-    private int bibleStudyPoints(){
-        if (bibleStudy){
-            return 400;
-        }
-        return -200;
+    private int liturgyPoint() {
+        return switch (liturgyStatus) {
+            case ATTENDED -> 1000;
+            case NOT_ATTENDED -> -1200;
+            case NOT_APPLICABLE -> 0;
+        };
     }
 
-    private int reflectionPoints(){
-        if (reflection){
-            return 250;
-        }
-        return -60;
+    private int prayersPoint() {
+        if (prayers == 0) return -400;
+        return (int) Math.min(700, 100 * Math.log(prayers + 1));
     }
 
-    private int servicePoints(){
-        if (service){
-            return 100;
-        }
-        return 0;
+    private int bibleStudyPoints() {
+        return bibleStudy ? 400 : -200;
     }
 
-    //no usage = +200, only 1 hr for messaging and all usage = no penalty, other than that it's a huge penalty
-    private int mediaUsagePoint(){
-        int point = 200;
-        if (mediaHourlyUsage == 0){
-            return point;
-        }
-        else if(mediaHourlyUsage < 3) {
-            return point + (mediaHourlyUsage * - 200);
-        }
-        else {
-            return point + (mediaHourlyUsage * - 300);
-        }
+    private int reflectionPoints() {
+        return reflection ? 250 : -60;
     }
 
-    public double getPoints(){
-        return totalPoints();
+    private int servicePoints() {
+        return service ? 100 : 0;
+    }
+
+    private int mediaUsagePoint() {
+        if (mediaHours == 0) return 200;
+        if (mediaHours < 3) return 200 - (mediaHours * 200);
+        else return 200 - (mediaHours * 300);
     }
 }
