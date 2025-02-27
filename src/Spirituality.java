@@ -1,3 +1,6 @@
+import java.util.Scanner;
+import java.util.SortedMap;
+
 public class Spirituality {
     //{Attend the Divine Liturgy, Daily Prayers, Read the Word Of God, Confession and Spiritual Reflection, Service}\
     Boolean liturgy;
@@ -16,7 +19,7 @@ public class Spirituality {
      * @param service         whether service is performed
      * @param mediaHourlyUsage number of hours spent on media (can negatively impact spirituality)
      */
-    Spirituality(Boolean liturgy, int prayers, Boolean bibleStudy, boolean reflection, boolean service, int mediaHourlyUsage){
+    Spirituality(Boolean liturgy, int prayers, boolean bibleStudy, boolean reflection, boolean service, int mediaHourlyUsage){
         //Prayer calculation must grow with logarithmic rate.
         this.liturgy = liturgy; // {-1200, +1000} range = 2200
         this.prayers = prayers; // {-400, +700} range = 1100
@@ -25,6 +28,51 @@ public class Spirituality {
         this.service = service; // {0, +100} range = 100
         this.mediaHourlyUsage = mediaHourlyUsage; // {negative, no upper limit} effect depends on hours spent (-150 * hours)
     }
+
+    public static Spirituality createSpiritualityTracker(){
+        Boolean liturgy = null;
+        boolean bibleStudy, reflection, service;
+        int prayers, mediaHourlyUsage;
+
+        Scanner scan = new Scanner(System.in);
+        System.out.println("What day of the week is it?");
+        int day;
+        do{
+            System.out.println("Please enter a number from 1-7");
+            System.out.println("1. Monday, 2. Tuesday, 3. Wednesday, 4. Thursday, 5. Friday, 6. Saturday, 7. Sunday");
+            day = scan.nextInt();
+            scan.nextLine();
+            if(day == 7){
+                System.out.println("Did you go to church?");
+                System.out.println("Enter (Yes/No)");
+                String str = scan.nextLine();
+                if(str.toLowerCase().equals("yes")){
+                    liturgy = true;
+                } else liturgy = false;
+            } else if (day > 0 && day < 7){ liturgy = null;}
+        }while(day > 7 || day < 1);
+
+        System.out.println("How many times did you pray today?");
+        prayers = scan.nextInt();
+        scan.nextLine();
+
+        System.out.println("Did you read your bible? (Yes/No)");
+        String str = scan.nextLine();
+        if (str.toLowerCase().equals("yes")) bibleStudy = true; else bibleStudy = false;
+
+        System.out.println("Did you reflect on your day? (Yes/No)");
+        str = scan.nextLine();
+        if (str.toLowerCase().equals("yes")) reflection = true; else reflection = false;
+
+        System.out.println("Did you do any service today? (Yes/No)");
+        str = scan.nextLine();
+        if (str.toLowerCase().equals("yes")) service = true; else service = false;
+
+        System.out.println("How many hours did you spend on entertainment (Gaming/TV/Social Media)");
+        mediaHourlyUsage = scan.nextInt();
+        return new Spirituality(liturgy,prayers, bibleStudy, reflection, service, mediaHourlyUsage);
+    }
+
     public int totalPoints(){
         int totalPoints = liturgyPoint() + prayersPoint() + bibleStudyPoints() + reflectionPoints()
                 + servicePoints() + mediaUsagePoint();

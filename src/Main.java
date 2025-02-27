@@ -2,33 +2,27 @@
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) {
-        Boolean liturgy = null;
-        int prayers = 4;
-        boolean bibleStudy = true;
-        boolean reflection = true;
-        boolean service = false;
-        int midiaHourlyUsage = 1;
 
-        boolean physicalActivity = true;
-        int junkFood = 0, sleep = 9;
+        int activityLevel = 7;
+        int junkFood = 0, sleep = 8;
 
-        double dailyIncome = 100;
-        double dailyCost = 90;
-        double wasted = 10;
+        double dailyIncome = 0;
+        double dailyCost = 0;
+        double wasted = 0;
 
         boolean isDailyGoalSet = true;
         boolean isPriorityGoalCompleted = true;
-        boolean isSecondaryGoalCompleted = false;
+        boolean isSecondaryGoalCompleted = true;
         boolean isThirdPriorityGoalCompleted = true;
-        boolean fullListComplete = false;
-        int wastedHourse = 4;
+        boolean fullListComplete = true;
+        int wastedHourse = 0;
 
-        int timeSpent = 3;
-        int affection = 5;
+        int timeSpent = 2;
+        int affection = 2;
         boolean supportive = true;
 
-        Spirituality spirituality = new Spirituality(liturgy,prayers, bibleStudy, reflection, service, midiaHourlyUsage);
-        Health health = new Health(physicalActivity, junkFood, sleep);
+        Spirituality spirituality = Spirituality.createSpiritualityTracker();
+        Health health = new Health(activityLevel, junkFood, sleep);
         Finance finance = new Finance(dailyIncome, dailyCost, wasted);
         Carrer carrer = new Carrer(isDailyGoalSet, isPriorityGoalCompleted, isSecondaryGoalCompleted, isThirdPriorityGoalCompleted,
         fullListComplete, wastedHourse);
@@ -42,4 +36,6 @@ public class Main {
 
         //System.out.println(aura);
     }
+
+
 }
