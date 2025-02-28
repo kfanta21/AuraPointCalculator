@@ -1,4 +1,4 @@
-public class Carrer {
+public class Career {
 
     boolean isDailyGoalSet;
     boolean isPriorityGoalCompleted;
@@ -14,7 +14,7 @@ public class Carrer {
 
 
 
-    Carrer(boolean isDailyGoalSet, boolean isPriorityGoalCompleted, boolean isSecondaryGoalCompleted,
+    Career(boolean isDailyGoalSet, boolean isPriorityGoalCompleted, boolean isSecondaryGoalCompleted,
     boolean isThirdPriorityGoalCompleted,
     boolean fullListComplete, int wastedHourse){
         this.isDailyGoalSet = isDailyGoalSet;
@@ -22,28 +22,26 @@ public class Carrer {
         this.isSecondaryGoalCompleted = isSecondaryGoalCompleted;
         this.isThirdPriorityGoalCompleted = isThirdPriorityGoalCompleted;
         this.fullListComplete = fullListComplete;
-        setWastedHourse(wastedHourse);
+        this.wastedHourse = wastedHourse;
     }
 
-    private void setWastedHourse(int wastedHourse){
-        if(wastedHourse > 24) {this.wastedHourse = 24;}
-        else if (wastedHourse < 0) {this.wastedHourse = 0;}
-        else this.wastedHourse = wastedHourse;
-    }
 
-    private double calcCarrerProgress(){
-        double points = 0.0;
-        if(isDailyGoalSet){ points += 250;} else {points -= 100;}
-        if(isPriorityGoalCompleted){points += 2000;} else {points -= 1500;}
-        if(isSecondaryGoalCompleted){points += 1000;} else {points -= 700;}
-        if(isThirdPriorityGoalCompleted){points += 500;} else {points -= 300;}
-        if(fullListComplete){ points += 300;} else { points -= 100;}
+    private int calcCareerPoints(){
+        int points = 0;
+        points += isDailyGoalSet ? 250 : -100;
+        points += isPriorityGoalCompleted ? 2000 : -1500;
+        points += isSecondaryGoalCompleted ? 1000 : -700;
+        points += isThirdPriorityGoalCompleted ? 500 : -300;
+        points += fullListComplete ? 300 : -100;
         return points - (wastedHourse*500);
     }
 
-    public double getPoints(){
-        double points = calcCarrerProgress();
-        System.out.println("Today's Carrer Points: " + points);
+    public void displayTotalPoints() {
+        System.out.println("Today's Career Point: " + calcCareerPoints());
+    }
+
+    public int getPoints(){
+        int points = calcCareerPoints();
         return points;
     }
 }

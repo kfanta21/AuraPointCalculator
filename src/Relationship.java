@@ -36,7 +36,6 @@ public class Relationship {
         return affection * 100;
     }
     private int supportivePoints(){
-        if(supportive) return 200;
-        else return -200;
+        return supportive ? 200 : -200;
     }
 }

@@ -2,15 +2,15 @@ public class DailyAura{
     Spirituality spirituality;
     Health health;
     Finance finance;
-    Carrer carrer;
+    Career career;
     Relationship relationship;
 
     public DailyAura(Spirituality spirituality, Health health, Finance finance,
-                     Carrer carrer, Relationship relationship) {
+                     Career career, Relationship relationship) {
         this.spirituality = spirituality;
         this.health = health;
         this.finance = finance;
-        this.carrer = carrer;
+        this.career = career;
         this.relationship = relationship;
     }
 
@@ -19,7 +19,7 @@ public class DailyAura{
         aura += spirituality.getPoints();
         aura += health.getPoints();
         aura += finance.getPoints();
-        aura += carrer.getPoints();
+        aura += career.getPoints();
         aura += relationship.getPoints();
         //consider drip/highgane
         return aura;
