@@ -20,7 +20,10 @@ public class Finance {
 
     public double getPoints(){
         double points = totalPoints() * 10;
-        System.out.println("Today's Finance Point: " + points);
         return points;
+    }
+
+    public void displayTotalPoints(){
+        System.out.println("Today's Finance Points is: " + getPoints());
     }
 }

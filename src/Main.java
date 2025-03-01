@@ -4,11 +4,6 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        double dailyIncome = 0;
-        double dailyCost = 0;
-        double wasted = 0;
-
-
         int timeSpent = 2;
         int affection = 5;
         boolean supportive = true;
@@ -27,10 +22,12 @@ public class Main {
         Career career = careerInputHandler.collectInput();
         career.displayTotalPoints();
 
+        FinanceInputHandler financeInputHandler = new FinanceInputHandler(scanner);
+        Finance finance = financeInputHandler.collectInput();
+        finance.displayTotalPoints();
+
         scanner.close();
 
-
-        Finance finance = new Finance(dailyIncome, dailyCost, wasted);
         Relationship relationship = new Relationship(timeSpent, affection, supportive);
 
         DailyAura dailyAura = new DailyAura(spirituality, health, finance, career, relationship);
