@@ -1,9 +1,15 @@
+/**
+ * The Finance class represents an individual's daily financial evaluation.
+ */
 public class Finance {
 
     private double daylyIncome;
     private double daylyCost; //for expenses that are monthly, divide it by 30 days to determine the daily cost of living
     private double wasted;
 
+    /**
+     * Constructs a Finance object with the specified financial details.
+     */
     Finance(double dailyIncome, double dailyCost, double wasted){
         this.daylyIncome = dailyIncome;
         this.daylyCost = dailyCost;
